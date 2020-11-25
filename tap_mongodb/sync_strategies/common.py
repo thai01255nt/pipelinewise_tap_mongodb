@@ -221,7 +221,6 @@ def row_to_singer_record(stream: Dict,
         'document': row_to_persist,
         SDC_DELETED_AT: utils.strftime(time_deleted) if time_deleted else None
     }
-
     return singer.RecordMessage(
         stream=calculate_destination_stream_name(stream),
         record=row_to_persist,

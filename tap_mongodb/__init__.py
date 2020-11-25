@@ -136,7 +136,6 @@ def sync_traditional_stream(client: MongoClient, stream: Dict, state: Dict):
 
     write_schema_message(stream)
     common.SCHEMA_COUNT[tap_stream_id] += 1
-
     with metrics.job_timer('sync_table') as timer:
         timer.tags['database'] = database_name
         timer.tags['table'] = stream['table_name']
