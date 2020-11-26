@@ -136,6 +136,7 @@ def sync_traditional_stream(client: MongoClient, stream: Dict, state: Dict):
 
     write_schema_message(stream)
     common.SCHEMA_COUNT[tap_stream_id] += 1
+
     with metrics.job_timer('sync_table') as timer:
         timer.tags['database'] = database_name
         timer.tags['table'] = stream['table_name']
@@ -273,7 +274,7 @@ def main_impl():
     LOGGER.info('Connected to MongoDB host: %s, version: %s',
                 config['host'],
                 client.server_info().get('version', 'unknown'))
-    LOGGER.info("222222222222222"+str(args))
+
     common.INCLUDE_SCHEMAS_IN_DESTINATION_STREAM_NAME = \
         (config.get('include_schemas_in_destination_stream_name') == 'true')
 

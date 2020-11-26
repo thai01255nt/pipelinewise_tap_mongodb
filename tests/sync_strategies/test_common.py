@@ -13,8 +13,7 @@ from dateutil.tz import tzutc
 import tap_mongodb.sync_strategies.common as common
 from tap_mongodb.errors import UnsupportedKeyTypeException
 
-client = MongoClient(**connection_params)
-db = client.sample_airbnb
+
 class TestRowToSchemaMessage(unittest.TestCase):
 
     def test_calculate_destination_stream_name_with_include_schema_True(self):

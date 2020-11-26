@@ -99,16 +99,6 @@ def sync_database(database: Database,
 
     # Init a cursor to listen for changes from the last saved resume token
     # if there are no changes after MAX_AWAIT_TIME_MS, then we'll exit
-    # a = [{'$match': {
-    #             '$or': [
-    #                 {'operationType': 'insert'}, {'operationType': 'update'}, {'operationType': 'delete'}
-    #             ],
-    #             '$and': [
-    #                 # watch collections of selected streams
-    #                 {'ns.coll': {'$regex': [val['table_name'] for val in streams_to_sync.values()]}}
-    #             ]
-    #         }}]
-    # LOGGER.info("2222222222222"+str(a))
     a = {}
     for val in streams_to_sync.values():
         a = val
@@ -118,10 +108,6 @@ def sync_database(database: Database,
                     {'operationType': 'insert'}, {'operationType': 'update'}, {'operationType': 'delete'},
                     {'ns.coll': [{'$regex': "^" + a['table_name']}]}
                 ]
-                # '$and': [
-                #     # watch collections of selected streams
-                #     {'ns.coll': [{'$regex':"^"+a['table_name']}]}
-                # ]
             }}],
             max_await_time_ms=await_time_ms,
             start_after=get_token_from_state(stream_ids, state)

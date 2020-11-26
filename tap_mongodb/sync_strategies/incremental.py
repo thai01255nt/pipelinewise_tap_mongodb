@@ -95,12 +95,14 @@ def sync_collection(collection: Collection,
 
     # log query
     LOGGER.info('Querying %s with: %s', stream['tap_stream_id'], dict(find=find_filter))
+
     with collection.find(find_filter,
                          sort=[(replication_key_name, pymongo.ASCENDING)]) as cursor:
         rows_saved = 0
         start_time = time.time()
 
         for row in cursor:
+
             singer.write_message(common.row_to_singer_record(stream=stream,
                                                              row=row,
                                                              time_extracted=utils.now(),
